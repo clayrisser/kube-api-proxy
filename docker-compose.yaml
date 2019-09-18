@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  kube-api-proxy:
+    image: codejamninja/kube-api-proxy:latest
+  ports:
+    - 8080:8080
