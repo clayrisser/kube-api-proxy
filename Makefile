@@ -1,5 +1,5 @@
 IMAGE := codejamninja/kube-api-proxy
-VERSION := 3.2.4
+VERSION := 0.1.0
 
 MAJOR := $(shell echo $(VERSION) | cut -d. -f1)
 MINOR := $(shell echo $(VERSION) | cut -d. -f2)

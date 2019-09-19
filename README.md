@@ -2,15 +2,15 @@
 
 [![GitHub stars](https://img.shields.io/github/stars/codejamninja/kube-api-proxy.svg?style=social&label=Stars)](https://github.com/codejamninja/kube-api-proxy)
 
-> simple nginx setup for docker
+> proxy kubernetes api
 
 Please ★ this repo if you found it useful ★ ★ ★
 
 
 ## Features
 
-* supports nginx
-* configure nginx
+* supports subpaths
+* supports http and https
 
 
 ## Installation
