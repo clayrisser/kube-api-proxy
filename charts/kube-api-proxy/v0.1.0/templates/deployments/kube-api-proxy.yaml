@@ -1,0 +1,49 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "kube-api-proxy.fullname" . }}-kube-api-proxy
+  labels:
+    app: {{ template "kube-api-proxy.name" . }}-kube-api-proxy
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  strategy:
+    type: {{ .Values.config.updateStrategy }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "kube-api-proxy.name" . }}-kube-api-proxy
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ template "kube-api-proxy.fullname" . }}-kube-api-proxy
+          image: {{ .Values.images.kube-api-proxy.repository }}:{{ .Values.images.kube-api-proxy.tag }}
+          imagePullPolicy: {{ .Values.config.imagePullPolicy }}
+          ports:
+            - name: container
+              containerPort: 8080
+          env:
+            - name: KUBE_PROTOCOL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "gitlab.fullname" . }}
+                  key: protocol
+            - name: KUBE_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "gitlab.fullname" . }}
+                  key: hostname
+            - name: KUBE_SUBPATH
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ template "gitlab.fullname" . }}
+                  key: subpath
+          livenessProbe:
+            tcpSocket:
+              port: container
+{{ toYaml .Values.probes.liveness | indent 12 }}
+          readinessProbe:
+            tcpSocket:
+              port: container
+{{ toYaml .Values.probes.readiness | indent 12 }}

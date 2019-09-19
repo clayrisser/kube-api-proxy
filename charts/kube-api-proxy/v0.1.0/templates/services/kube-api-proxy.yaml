@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "kube-api-proxy.fullname" . }}-kube-api-proxy
+  labels:
+    app: {{ template "kube-api-proxy.name" . }}-kube-api-proxy
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  {{- if .Values.ingress.kube-api-proxy.enabled }}
+  type: ClusterIP
+  {{- else }}
+  type: {{ .Values.service.kube-api-proxy.type }}
+  {{- if (or (eq .Values.service.kube-api-proxy.type "LoadBalancer") (eq .Values.service.kube-api-proxy.type "NodePort")) }}
+  externalTrafficPolicy: {{ .Values.service.kube-api-proxy.externalTrafficPolicy }}
+  {{- end }}
+  {{- end }}
+  ports:
+    - name: http
+      port: 80
+      targetPort: container
+      {{- if (and (eq .Values.service.kube-api-proxy.type "NodePort") (not (empty .Values.service.kube-api-proxy.nodePorts.http))) }}
+      nodePort: {{ .Values.service.kube-api-proxy.nodePorts.http }}
+      {{- end }}
+  selector:
+    app: {{ template "kube-api-proxy.name" . }}-kube-api-proxy
+    release: {{ .Release.Name }}
