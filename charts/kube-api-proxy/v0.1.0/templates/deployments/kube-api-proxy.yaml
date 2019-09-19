@@ -27,17 +27,17 @@ spec:
             - name: KUBE_PROTOCOL
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "gitlab.fullname" . }}
+                  name: {{ template "kube-api-proxy.fullname" . }}
                   key: protocol
             - name: KUBE_HOSTNAME
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "gitlab.fullname" . }}
+                  name: {{ template "kube-api-proxy.fullname" . }}
                   key: hostname
             - name: KUBE_SUBPATH
               valueFrom:
                 configMapKeyRef:
-                  name: {{ template "gitlab.fullname" . }}
+                  name: {{ template "kube-api-proxy.fullname" . }}
                   key: subpath
           livenessProbe:
             tcpSocket:
