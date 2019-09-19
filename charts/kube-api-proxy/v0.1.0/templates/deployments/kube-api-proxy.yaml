@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: {{ template "kube-api-proxy.fullname" . }}-kube-api-proxy
-          image: {{ .Values.images.kube-api-proxy.repository }}:{{ .Values.images.kube-api-proxy.tag }}
+          image: {{ .Values.images.kubeApiProxy.repository }}:{{ .Values.images.kubeApiProxy.tag }}
           imagePullPolicy: {{ .Values.config.imagePullPolicy }}
           ports:
             - name: container
