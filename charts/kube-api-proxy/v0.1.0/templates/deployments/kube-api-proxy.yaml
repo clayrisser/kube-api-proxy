@@ -33,7 +33,7 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: {{ template "kube-api-proxy.fullname" . }}
-                  key: hostname
+                  key: host
             - name: KUBE_SUBPATH
               valueFrom:
                 configMapKeyRef:
