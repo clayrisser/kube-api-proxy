@@ -8,20 +8,20 @@ metadata:
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
 spec:
-  {{- if .Values.ingress.kube-api-proxy.enabled }}
+  {{- if .Values.ingress.kubeApiProxy.enabled }}
   type: ClusterIP
   {{- else }}
-  type: {{ .Values.service.kube-api-proxy.type }}
-  {{- if (or (eq .Values.service.kube-api-proxy.type "LoadBalancer") (eq .Values.service.kube-api-proxy.type "NodePort")) }}
-  externalTrafficPolicy: {{ .Values.service.kube-api-proxy.externalTrafficPolicy }}
+  type: {{ .Values.service.kubeApiProxy.type }}
+  {{- if (or (eq .Values.service.kubeApiProxy.type "LoadBalancer") (eq .Values.service.kubeApiProxy.type "NodePort")) }}
+  externalTrafficPolicy: {{ .Values.service.kubeApiProxy.externalTrafficPolicy }}
   {{- end }}
   {{- end }}
   ports:
     - name: http
       port: 80
       targetPort: container
-      {{- if (and (eq .Values.service.kube-api-proxy.type "NodePort") (not (empty .Values.service.kube-api-proxy.nodePorts.http))) }}
-      nodePort: {{ .Values.service.kube-api-proxy.nodePorts.http }}
+      {{- if (and (eq .Values.service.kubeApiProxy.type "NodePort") (not (empty .Values.service.kubeApiProxy.nodePorts.http))) }}
+      nodePort: {{ .Values.service.kubeApiProxy.nodePorts.http }}
       {{- end }}
   selector:
     app: {{ template "kube-api-proxy.name" . }}-kube-api-proxy
