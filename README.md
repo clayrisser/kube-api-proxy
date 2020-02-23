@@ -16,7 +16,7 @@ Please ★ this repo if you found it useful ★ ★ ★
 ## Installation
 
 ```sh
-docker run -p 8080:8080 codejamninja/nginx:latest
+docker run -p 8080:8080 codejamninja/kube-api-proxy:0.1.0
 ```
 
 
