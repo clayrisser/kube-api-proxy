@@ -4,6 +4,8 @@
 
 > proxy kubernetes api
 
+![](assets/kube-api-proxy.png)
+
 Please ★ this repo if you found it useful ★ ★ ★
 
 
